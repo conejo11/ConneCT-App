@@ -14,6 +14,7 @@ import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
 import { UserPage } from '../pages/user/user';
 import { AuthService } from '../providers/auth.service';
 import { UserService } from '../providers/user.service';
+import { AlertService } from "../providers/alert.service";
 import { EditTelephoneComponent } from '../components/edit-telephone/edit-telephone';
 
 export const firebaseConfig = {
@@ -52,6 +53,6 @@ export const firebaseConfig = {
     TabsNavigationPage,
     EditTelephoneComponent
   ],
-  providers: [AuthService,{provide: ErrorHandler, useClass: IonicErrorHandler},UserService]
+  providers: [AuthService,{provide: ErrorHandler, useClass: IonicErrorHandler},UserService,AlertService]
 })
 export class AppModule {}

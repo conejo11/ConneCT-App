@@ -14,7 +14,7 @@
   <form [formGroup]="loginFirebaseAccountForm" (ngSubmit)="sigIn(loginFirebaseAccountForm.value)">
         <ion-item [class.error]="!email.valid && email.touched">
             <ion-label floating>E-mail</ion-label>
-            <ion-input type="text" value="" [formControl]="email"></ion-input>
+            <ion-input type="email" value="" [formControl]="email"></ion-input>
         </ion-item>
         <div *ngIf="email.hasError('required') && email.touched" >* E-mail é necessário.</div>
         <div *ngIf="email.hasError('pattern') && email.touched">* Enter a valid email address.</div>

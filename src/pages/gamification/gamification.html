@@ -12,6 +12,29 @@
   <ion-card >
     <ion-card-title text-center>
       <button ion-button clear color="dark" icon-right
+              (click)="alertDescription('Perfil', 'Aqui você encontrará as informações de seu perfil! Toque em Editar Apelido para mudar seu apelido.')">
+        <p>Perfil</p>
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <p class="descriptionRanking">Bem vindo {{userNickname}}</p>
+            <button ion-button clear color="dark" icon-right class="buttonEditNickname"
+                    (click)="onNicknamePressed()">
+              Editar Apelido
+            </button>
+          </ion-col>
+          <ion-col col-1>
+            <p>Teste :3</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-title>
+  </ion-card>
+  <ion-card >
+    <ion-card-title text-center>
+      <button ion-button clear color="dark" icon-right
       (click)="alertDescription(ranking?.title,ranking?.description)">
         <p>{{ranking?.title}}</p>
         <ion-icon name="information-circle"></ion-icon>

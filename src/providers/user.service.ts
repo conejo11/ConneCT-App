@@ -15,6 +15,17 @@ export class UserService {
     public authService: AuthService,
   ) {}
 
+  // updateNickname: Every time the nickname needs to be updated
+  updateNickname(nick:string) {
+    return new Promise(resolve =>
+      this.getUser().then((_user) => {
+        this.db.object(`/${_user.uidCT}/users/${_user.id}`)
+          .update({nickname: nick});
+        resolve();
+      })
+    )
+  }
+
   updateTelephone(newTelephone:string) {
     return new Promise(resolve =>
       this.getUser().then((_user) => {
