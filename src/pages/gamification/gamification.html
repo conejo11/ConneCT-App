@@ -9,6 +9,7 @@
       refreshingText="Atualizando...">
     </ion-refresher-content>
   </ion-refresher>
+
   <ion-card >
     <ion-card-title text-center>
       <button ion-button clear color="dark" icon-right
@@ -18,20 +19,23 @@
       </button>
       <ion-grid>
         <ion-row>
-          <ion-col col-8>
+          <ion-col col-6>
             <p class="descriptionRanking">Bem vindo {{userNickname}}</p>
             <button ion-button clear color="dark" icon-right class="buttonEditNickname"
                     (click)="onNicknamePressed()">
               Editar Apelido
             </button>
           </ion-col>
-          <ion-col col-1>
-            <p>Teste :3</p>
+          <ion-col col-6>
+            <p>{{ranking?.quantity}} Gols</p>
+            <p>Niveu</p>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-title>
   </ion-card>
+
+
   <ion-card >
     <ion-card-title text-center>
       <button ion-button clear color="dark" icon-right
@@ -39,28 +43,45 @@
         <p>{{ranking?.title}}</p>
         <ion-icon name="information-circle"></ion-icon>
       </button>
+
       <ion-grid>
         <ion-row >
-          <ion-col col-8>
+          <!-- <ion-col col-8>
             <p class="descriptionRanking">Você esta acima de {{positionRanking}}% dos jogadores</p>
-            <br>
-            <p class="numberRanking">{{ ranking?.quantity }}</p>
+          </ion-col> -->
+
+          <ion-col col-6>
+            <p class="descriptionRanking">Você está acima de {{positionRanking}}% dos jogadores</p>
           </ion-col>
-          <ion-col col-4>
-            <div style="padding-bottom: 90px;">
-              <img class="imgRanking"
-                  src="assets/images/rankingGamification/ballRankingEmpty.jpg"
-              />
-              <img class="imgRanking"
-                  src="assets/images/rankingGamification/ballRanking.jpg"
-                  [ngStyle]="getStyleImgRanking()"
-              />
-            </div>
+
+          <ion-col col-6>
+            <p class="descriptionRanking">Seu time está acima de {{positionRanking}}% dos times</p>
           </ion-col>
         </ion-row>
+
+        <ion-row>
+          <ion-col col-6>
+              <div class="image-container">
+                <img class="imgRanking"src="assets/images/rankingGamification/ballRankingEmpty.jpg"/>
+                <img class="imgRanking" src="assets/images/rankingGamification/ballRanking.jpg"[ngStyle]="getStyleImgRanking()" />
+              </div>
+          </ion-col>
+
+          <ion-col col-6>
+              <div class="image-container">
+                <div >
+                  <img class="imgRanking" src="assets/images/rankingGamification/ballRankingEmpty.jpg" />
+                  <img class="imgRanking" src="assets/images/rankingGamification/ballRanking.jpg" [ngStyle]="getStyleImgRanking()"/>
+                </div>
+              </div>
+          </ion-col>
+        </ion-row>
+
       </ion-grid>
     </ion-card-title>
   </ion-card>
+
+
   <ion-card >
     <ion-card-title text-center>
       <button ion-button clear color="dark" icon-right
@@ -83,6 +104,8 @@
         </ion-grid>
     </ion-card-title>
   </ion-card>
+
+
   <ion-card >
     <ion-card-title text-center>
       <button ion-button clear color="dark" icon-right
@@ -105,6 +128,8 @@
       </ion-grid>
     </ion-card-title>
   </ion-card>
+
+
   <ion-card >
     <ion-card-title text-center>
       <button ion-button clear color="dark" icon-right
@@ -127,4 +152,6 @@
       </ion-grid>
     </ion-card-title>
   </ion-card>
+
+
 </ion-content>
