@@ -18,6 +18,7 @@ export class GamificationPage implements OnInit {
   daysCurrent: number = 0;
   heightTrophys: number = 40;
   userNickname: string;
+  userLevel: string;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -38,6 +39,10 @@ export class GamificationPage implements OnInit {
     this.userService.updateNickname(nick).then(() => this.getGamificatios());
   }
 
+  requestUpdateLevel(level){
+    this.userService.updateLevel(level).then(() => this.getGamificatios());
+  }
+
   getGamificatios(): Promise<any> {
     return new Promise(resolve =>{
       this.userService.getUser().then((DQ:User) => {
@@ -50,7 +55,9 @@ export class GamificationPage implements OnInit {
 
         this.daysCurrent = DQ.gamification[9]['quantity'];
         this.userNickname = DQ.nickname;
-        this.onContentLoaded()
+        this.userLevel = DQ.nivel;
+        this.onContentLoaded();
+        this.onLoadedContent()
       });
       this.userService.getPositionRanking().then((position: number) => this.positionRanking = position);
       resolve();
@@ -59,6 +66,59 @@ export class GamificationPage implements OnInit {
 
   checkNicknameIsValid(nick): boolean {
     return !(nick == "" || nick.replace(/\s/g,'') == "");
+  }
+
+  getLevel(ptos) {
+    let lvl = 'Pelada na Rua';
+    if(ptos >= 0 && ptos < 150){
+      lvl = 'Pelada na Rua';
+    }
+    if(ptos > 150 && ptos < 200){
+      lvl = 'Campeonato da Cidade';
+    }
+    if(ptos > 200 && ptos < 350){
+      lvl = 'Campeonato Estadual';
+    }
+    if(ptos > 350 && ptos < 450){
+      lvl = 'Campeonato Brasileiro';
+    }
+    if(ptos > 450 && ptos < 550){
+      lvl = 'Libertadores';
+    }
+    if(ptos > 550 && ptos < 650){
+      lvl = 'Liga Europa';
+    }
+    if(ptos > 650 && ptos < 750){
+      lvl = 'Liga dos Campeões';
+    }
+    if(ptos > 750 && ptos < 850){
+      lvl = 'Copa das Confederações';
+    }
+    if(ptos > 850 && ptos < 950){
+      lvl = 'Olimpíadas';
+    }
+    if(ptos > 950 && ptos < 1100){
+      lvl = 'Copa do Mundo';
+    }
+    return lvl;
+  }
+
+  onLoadedContent() {
+    this.userService.getUser().then((user) => {
+      if(user.nivel === undefined) {
+        let niveu = '1'
+        this.requestUpdateLevel(niveu);
+      }
+      let oldLevel = user.nivel;
+      let rk = user.gamification[0];
+      let gols = rk.quantity;
+      let newLevel = this.getLevel(gols);
+
+      if (oldLevel != newLevel){
+        this.requestUpdateLevel(newLevel);
+        this.alertService.createAlertOK('Passou de nível!', "Parabéns " + user.nickname + "! Você agora está jogando o campeonato: <br> <br>" + newLevel + ". <br> <br> Continue marcando gols para ser promovido!", () => {})
+      }
+    })
   }
 
   // Each time the getGamifications is finished, this function is called

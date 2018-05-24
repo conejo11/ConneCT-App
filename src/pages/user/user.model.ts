@@ -8,6 +8,7 @@ export class User {
     public name: string,
     public email: string,
     public nickname: string,
+    public nivel: string,
     public password: string,
     public telephone: number,
     public telephoneOther: number,

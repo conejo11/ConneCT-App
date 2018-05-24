@@ -26,6 +26,16 @@ export class UserService {
     )
   }
 
+  updateLevel(level:string) {
+    return  new Promise(resolve =>
+      this.getUser().then((_user) => {
+        this.db.object(`/${_user.uidCT}/users/${_user.id}`)
+          .update({nivel: level});
+        resolve();
+      })
+    )
+  }
+
   updateTelephone(newTelephone:string) {
     return new Promise(resolve =>
       this.getUser().then((_user) => {
@@ -123,6 +133,8 @@ export class UserService {
   pushAnswers(answers: Answer[]) {
     this.getUser().then((_user) => {
       answers.forEach((answer:Answer) => {
+        // answer.date = answer.date.getTime()
+        // answer.date = str(answer.date)
         this.db.list(`/${_user.uidCT}/users/${_user.id}/answers/${answer.questionID}/`).push(answer);
       })
     })
