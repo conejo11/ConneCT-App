@@ -20,6 +20,12 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6>
+            <img src="{{iconi}}" class="imagi">
+            <button ion-button clear color="dark" icon-right
+                    (click)="onIconPressed()">
+            <ion-icon name="create"></ion-icon>
+            </button>
+            <br>
             <button ion-button clear color="dark" icon-right class="buttonEditNickname" style= "text-transform: none;"
                     (click)="onNicknamePressed()">
               <p class="descriptionRanking">Jogador: {{userNickname}}</p>
@@ -27,13 +33,13 @@
             </button>
             <p class="descriptionRanking">Time: {{userNickname}}</p>
           </ion-col>
-          <ion-col col-6>
+          <ion-col col-6 class="nivi">
             <button ion-button clear color="dark" icon-right style= "text-transform: none;"
                     (click)="alertDescription('Nível', 'Número de Gols - Nível:
                     <br> <br> 0 a 150 - Pelada na Rua
                     <br> <br> 150 a 200 - Campeonato da Cidade
-                    <br> <br> 200 a 350 - Campeonato da Estadual
-                    <br> <br> 350 a 450 - Campeonato da Brasileiro
+                    <br> <br> 200 a 350 - Campeonato Estadual
+                    <br> <br> 350 a 450 - Campeonato Brasileiro
                     <br> <br> 450 a 550 - Libertadores
                     <br> <br> 550 a 650 - Liga Europa
                     <br> <br> 650 a 750 - Liga dos Campeões

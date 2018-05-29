@@ -36,6 +36,16 @@ export class UserService {
     )
   }
 
+  updateIcon(icone:string){
+    return new Promise(resolve =>
+      this.getUser().then((_user) => {
+        this.db.object(`/${_user.uidCT}/users/${_user.id}`)
+          .update({usericon: icone});
+        resolve();
+      })
+    )
+  }
+
   updateTelephone(newTelephone:string) {
     return new Promise(resolve =>
       this.getUser().then((_user) => {

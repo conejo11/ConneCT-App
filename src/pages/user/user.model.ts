@@ -9,6 +9,7 @@ export class User {
     public email: string,
     public nickname: string,
     public nivel: string,
+    public usericon: string,
     public password: string,
     public telephone: number,
     public telephoneOther: number,

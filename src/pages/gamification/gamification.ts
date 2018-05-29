@@ -19,6 +19,7 @@ export class GamificationPage implements OnInit {
   heightTrophys: number = 40;
   userNickname: string;
   userLevel: string;
+  iconi: string;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -43,6 +44,10 @@ export class GamificationPage implements OnInit {
     this.userService.updateLevel(level).then(() => this.getGamificatios());
   }
 
+  requestChangeIcon(iconn){
+    this.userService.updateIcon(iconn).then(() => this.getGamificatios());
+  }
+
   getGamificatios(): Promise<any> {
     return new Promise(resolve =>{
       this.userService.getUser().then((DQ:User) => {
@@ -56,12 +61,23 @@ export class GamificationPage implements OnInit {
         this.daysCurrent = DQ.gamification[9]['quantity'];
         this.userNickname = DQ.nickname;
         this.userLevel = DQ.nivel;
+        this.iconi = DQ.usericon;
         this.onContentLoaded();
-        this.onLoadedContent()
+        this.onLoadedContent();
+        this.loadedContent();
       });
       this.userService.getPositionRanking().then((position: number) => this.positionRanking = position);
       resolve();
     });
+  }
+
+  loadedContent(){
+    this.userService.getUser().then((user) => {
+      if(user.usericon === undefined) {
+        let icons = 'https://firebasestorage.googleapis.com/v0/b/connect-48f5c.appspot.com/o/icons8-cristiano-ronaldo-100.png?alt=media&token=2aca139d-7b55-4b8f-a693-6458c2706670'
+        this.requestChangeIcon(icons);
+      }
+    })
   }
 
   checkNicknameIsValid(nick): boolean {
@@ -103,6 +119,7 @@ export class GamificationPage implements OnInit {
     return lvl;
   }
 
+
   onLoadedContent() {
     this.userService.getUser().then((user) => {
       if(user.nivel === undefined) {
@@ -116,7 +133,7 @@ export class GamificationPage implements OnInit {
 
       if (oldLevel != newLevel){
         this.requestUpdateLevel(newLevel);
-        this.alertService.createAlertOK('Passou de nível!', "Parabéns " + user.nickname + "! Você agora está jogando o campeonato: <br> <br>" + newLevel + ". <br> <br> Continue marcando gols para ser promovido!", () => {})
+        this.alertService.createAlertOK('Passou de nível!', "Parabéns " + this.userNickname + "! Você agora está jogando o campeonato: <br> <br>" + newLevel + ". <br> <br> Continue marcando gols para ser promovido!", () => {})
       }
     })
   }
@@ -143,6 +160,15 @@ export class GamificationPage implements OnInit {
         this.alertService.createAlertYesNo("Criar Apelido", "O nosso sistema agora possui a função de apelidos!\nDeseja criar um agora?", "Sim", "Não", criar_nick, nao_criar_nick)
       }
     })
+  }
+
+
+  onIconPressed(){
+    this.alertService.showRadio((data) => {
+      let icone = data;
+      this.requestChangeIcon(icone);
+      this.alertService.createAlertOK('Ícone de Jogador Selecionado', "Parabéns " + this.userNickname + "!  Seu ícone de jogador foi alterado com sucesso!", () => {})
+    });
   }
 
   // Every time the 'Mudar Apelido' is pressed
