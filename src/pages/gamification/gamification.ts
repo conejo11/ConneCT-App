@@ -20,6 +20,8 @@ export class GamificationPage implements OnInit {
   userNickname: string;
   userLevel: string;
   iconi: string;
+  uid: string;
+  team:string;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -62,11 +64,13 @@ export class GamificationPage implements OnInit {
         this.userNickname = DQ.nickname;
         this.userLevel = DQ.nivel;
         this.iconi = DQ.usericon;
+        this.uid = DQ.uidCT;
         this.onContentLoaded();
         this.onLoadedContent();
         this.loadedContent();
       });
       this.userService.getPositionRanking().then((position: number) => this.positionRanking = position);
+      this.userService.getCT().then((ct) => { this.team = ct.username})
       resolve();
     });
   }

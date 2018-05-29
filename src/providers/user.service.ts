@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-
+import { Ct } from '../pages/user/ct.model';
 import { User } from '../pages/user/user.model';
 import { Answer } from '../pages/questions/answer.model';
 import { AuthService } from './auth.service'
@@ -125,6 +125,23 @@ export class UserService {
             if(_DQs['users'] != undefined)
               if (_DQs['users'][_uidDQ] != undefined)
                 resolve(_DQs['users'][_uidDQ]);
+          })
+        })
+      })
+    });
+  }
+
+  getCT(): Promise<Ct> {
+    return new Promise(resolve => {
+      this.authService.getUID().then(_uidDQ => {
+        return _uidDQ;
+      }).then((_uidDQ: any) => {
+        this.listOfCTs$ = this.db.list(`/`);
+        this.listOfCTs$.valueChanges().subscribe(_CTs => {
+          _CTs.forEach(_DQs => {
+            if(_DQs['users'] != undefined)
+              if (_DQs['users'][_uidDQ] != undefined)
+                resolve(_DQs['data']);
           })
         })
       })
